@@ -42,8 +42,13 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content.startswith('tsb!'):
-        if message.content.startswith('tsb!perms'):
+        command=message.content.split('!')[1]
+        if command=='perms':
             await message.channel.send('I have the permissions: '+str(isTrue(makeDict(iter((message.channel.permissions_for(message.channel.guild.me)))))))
+        elif command=='help':
+            await message.channel.send('Look at my top.gg for commands: https://top.gg/bot/712356169217474650')
+        elif command=='getalife':
+            await message.channel.send('Haha never!')
         else:
             await message.channel.send("That's not a thing.")
     elif not message.author.bot and not hasRole('The Silent Few',message.author.roles) and message.author!=client.user and not (message.content.startswith('*') and message.content[1]!='*' and not message.content[-2] in ['\\','*'] and message.content[-1]=='*') and message.channel.name=='silent-conversation':
