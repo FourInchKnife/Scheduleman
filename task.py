@@ -47,7 +47,7 @@ async def on_message(message):
         elif command=='getalife':
             await message.channel.send('Haha never!')
         elif command=='init':
-            if 'manage_guild' in isTrue(makeDict(iter((message.channel.guild.permissions_for(message.channel.author))))):
+            if 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.channel.author))))):
                 await message.channel.send('Ok then. I guess I\'ll just re-do all of my hard work.')
                 await message.channel.guild.create_role(name='Silenced',reason='Allows muting of rule breakers in the silent-conversation chat.')
                 await message.channel.guild.create_text_channel('silent-conversation',overwrites={guild.get_role(findIDForRole('Silenced',guild.roles)):discord.PermissionOverwrite(send_messages=False)})
