@@ -45,7 +45,7 @@ async def on_message(message):
         elif command=='help':
             await message.channel.send('Look at my GitHub page for commands: https://github.com/rxal12233445/Discord-Silencer-Bot/blob/master/README.md')
         elif command=='getalife':
-            await message.channel.send('Haha never!')
+            await message.channel.send('Says the person talking to a literal bot.')
         elif command=='init':
             if 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
                 await message.channel.send('Ok then. I guess I\'ll just re-do all of my hard work.')
@@ -55,7 +55,7 @@ async def on_message(message):
                 await message.channel.send("Nice try {0} . You don't actually have the perms for that, do you?".format(message.author.mention))
         else:
             await message.channel.send("That's not a thing.")
-    elif not message.author.bot and not hasRole('The Silent Few',message.author.roles) and message.author!=client.user and not (message.content.startswith('*') and message.content[1]!='*' and not message.content[-2] in ['\\','*'] and message.content[-1]=='*') and message.channel.name=='silent-conversation':
+    elif not 'administrator' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))) and not message.author.bot and not hasRole('The Silent Few',message.author.roles) and message.author!=client.user and not (message.content.startswith('*') and message.content[1]!='*' and not message.content[-2] in ['\\','*'] and message.content[-1]=='*') and message.channel.name=='silent-conversation':
         await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
         await message.channel.send(message.author.name+' was silenced.')
         for i in 'quiet':
