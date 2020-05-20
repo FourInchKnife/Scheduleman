@@ -1,4 +1,7 @@
 import discord
+from os import environ
+is_prod = environ.get('IS_HEROKU')
+
 from random import choice
 def hasRole(name='@everyone',list=[]):
     list2=[]
@@ -27,7 +30,6 @@ def findIDForRole(name,roleList):
         if i.name==name:
             return i.id
 indicators={'a': '\U0001f1e6', 'b': '\U0001f1e7', 'c': '\U0001f1e8', 'd': '\U0001f1e9', 'e': '\U0001f1ea', 'f': '\U0001f1eb', 'g': '\U0001f1ec', 'h': '\U0001f1ed', 'i': '\U0001f1ee', 'j': '\U0001f1ef', 'k': '\U0001f1f0', 'l': '\U0001f1f1', 'm': '\U0001f1f2', 'n': '\U0001f1f3', 'o': '\U0001f1f4', 'p': '\U0001f1f5', 'q': '\U0001f1f6', 'r': '\U0001f1f7', 's': '\U0001f1f8', 't': '\U0001f1f9', 'u': '\U0001f1fa', 'v': '\U0001f1fb', 'w': '\U0001f1fc', 'x': '\U0001f1fd', 'y': '\U0001f1fe', 'z': '\U0001f1ff'}
-days='mtwhf'
 
 client = discord.Client()
 
@@ -56,4 +58,8 @@ async def on_message(message):
         for i in 'quiet':
             await message.add_reaction(indicators[i])
         await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
-client.run('')
+if is_prod:
+    bot_token=environ.get('BOT_TOKEN',None)
+else:
+    bot_token=input('What is your bot token?')
+client.run(bot_token)
