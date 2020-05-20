@@ -50,7 +50,7 @@ async def on_message(message):
             if 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
                 await message.channel.send('Ok then. I guess I\'ll just re-do all of my hard work.')
                 await message.channel.guild.create_role(name='Silenced',reason='Allows muting of rule breakers in the silent-conversation chat.')
-                await message.channel.guild.create_text_channel('silent-conversation',overwrites={guild.get_role(findIDForRole('Silenced',guild.roles)):discord.PermissionOverwrite(send_messages=False)})
+                await message.channel.guild.create_text_channel('silent-conversation',overwrites={message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)):discord.PermissionOverwrite(send_messages=False)})
             else:
                 await message.channel.send("Nice try {0} . You don't actually have the perms for that, do you?".format(message.author.mention))
         else:
