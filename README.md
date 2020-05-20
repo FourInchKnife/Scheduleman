@@ -4,4 +4,5 @@ Silences anyone who doesn't use * before and after their messages. Doesn't silen
 This only silences people in the #silent-conversation channel.
 
 tsb!perms returns the bot's permissions.
-tsb!help gives the link to the top.gg page.
+tsb!help gives the link to the GitHub page.
+tsb!init remakes the roles and channel needed for this bot to work properly. you probably wont need this.
