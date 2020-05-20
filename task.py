@@ -43,7 +43,7 @@ async def on_message(message):
         if command=='perms':
             await message.channel.send('I have the permissions: '+str(isTrue(makeDict(iter((message.channel.permissions_for(message.channel.guild.me)))))))
         elif command=='help':
-            await message.channel.send('Look at my top.gg for commands: https://top.gg/bot/712356169217474650')
+            await message.channel.send('Look at my top.gg for commands: https://github.com/rxal12233445/Discord-Silencer-Bot')
         elif command=='getalife':
             await message.channel.send('Haha never!')
         elif command=='init':
