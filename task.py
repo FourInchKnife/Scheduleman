@@ -56,10 +56,11 @@ async def on_message(message):
         else:
             await message.channel.send("That's not a thing.")
     elif not message.author.bot and not hasRole('The Silent Few',message.author.roles) and message.author!=client.user and not (message.content.startswith('*') and message.content[1]!='*' and not message.content[-2] in ['\\','*'] and message.content[-1]=='*') and message.channel.name=='silent-conversation':
+        await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
         await message.channel.send(message.author.name+' was silenced.')
         for i in 'quiet':
             await message.add_reaction(indicators[i])
-        await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
+        
 
 bot_token=environ.get('BOT_TOKEN',None)
 
