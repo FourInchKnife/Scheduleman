@@ -38,7 +38,7 @@ async def on_guild_join(guild):
 @client.event
 async def on_ready():
     print('Logged in as {0.user}'.format(client))
-    await client.change_presence(activity=discord.Game(name="be quiet."))
+    await client.change_presence(activity=discord.Game(name="tsb!help"))
 @client.event
 async def on_message(message):
     if message.content.startswith('tsb!'):
