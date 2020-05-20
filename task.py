@@ -5,10 +5,7 @@ def hasRole(name='@everyone',list=[]):
     list2=[]
     for i in range(len( list)):
         list2.append(list[i].name)
-    if name in list2:
-        return True
-    else:
-        return False
+    return name in list2
 def makeDict(iterator):
     making=[]
     for i in iterator:
