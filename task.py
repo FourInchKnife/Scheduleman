@@ -1,8 +1,6 @@
 import discord
 from os import environ
-is_prod = environ.get('IS_HEROKU')
 
-from random import choice
 def hasRole(name='@everyone',list=[]):
     list2=[]
     for i in range(len( list)):
@@ -58,8 +56,10 @@ async def on_message(message):
         for i in 'quiet':
             await message.add_reaction(indicators[i])
         await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
-if is_prod:
-    bot_token=environ.get('BOT_TOKEN',None)
-else:
+
+bot_token=environ.get('BOT_TOKEN',None)
+
+if not bot_token:
     bot_token=input('What is your bot token?')
+
 client.run(bot_token)
