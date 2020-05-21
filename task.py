@@ -5,70 +5,44 @@ def hasRole(name='@everyone',list=[]):
     list2=[]
     for i in range(len( list)):
         list2.append(list[i].name)
-    return name in list2
-def makeDict(iterator):
-    making=[]
-    for i in iterator:
-        making.append(i)
-    made={}
-    for i in making:
-        made[i[0]]=i[1]
-    return made
-def isTrue(dict):
-    trues=[]
-    for i in dict:
-        if dict[i]==True:
-            trues.append(i)
-    return trues
-def findIDForRole(name,roleList):
-    for i in roleList:
-        if i.name==name:
-            return i.id
+    if name in list2:
+        return True
+    else:
+        return False
 indicators={'a': '\U0001f1e6', 'b': '\U0001f1e7', 'c': '\U0001f1e8', 'd': '\U0001f1e9', 'e': '\U0001f1ea', 'f': '\U0001f1eb', 'g': '\U0001f1ec', 'h': '\U0001f1ed', 'i': '\U0001f1ee', 'j': '\U0001f1ef', 'k': '\U0001f1f0', 'l': '\U0001f1f1', 'm': '\U0001f1f2', 'n': '\U0001f1f3', 'o': '\U0001f1f4', 'p': '\U0001f1f5', 'q': '\U0001f1f6', 'r': '\U0001f1f7', 's': '\U0001f1f8', 't': '\U0001f1f9', 'u': '\U0001f1fa', 'v': '\U0001f1fb', 'w': '\U0001f1fc', 'x': '\U0001f1fd', 'y': '\U0001f1fe', 'z': '\U0001f1ff'}
+days='mtwhfs'
 
 client = discord.Client()
 
 @client.event
-async def on_guild_join(guild):
-    await guild.create_role(name='Silenced',reason='Allows muting of rule breakers in the silent-conversation chat.')
-    await guild.create_text_channel('silent-conversation',overwrites={guild.get_role(findIDForRole('Silenced',guild.roles)):discord.PermissionOverwrite(send_messages=False)})
-@client.event
 async def on_ready():
-    print('Logged in as {0.user}'.format(client))
-    await client.change_presence(activity=discord.Game(name="tsb!help"))
+    print('We have logged in as {0.user}'.format(client))
+    await client.change_presence(activity=discord.Game(name="sm!"))
 @client.event
 async def on_message(message):
-    if message.content.startswith('tsb!'):
-        command=message.content.split('!')[1]
-        if command=='perms':
-            await message.channel.send('I have the permissions: '+str(isTrue(makeDict(iter((message.channel.permissions_for(message.channel.guild.me)))))))
-        elif command=='help':
-            await message.channel.send('Look at my GitHub page for commands: https://github.com/rxal12233445/Discord-Silencer-Bot/blob/master/README.md')
-        elif command=='getalife':
-            await message.channel.send('Says the person talking to a literal bot.')
-        elif command=='init' or command=='kick':
-            if command=='init' and 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
-                await message.channel.send('Ok then. I guess I\'ll just re-do all of my hard work.')
-                await message.channel.guild.create_role(name='Silenced',reason='Allows muting of rule breakers in the silent-conversation chat.')
-                await message.channel.guild.create_text_channel('silent-conversation',overwrites={message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)):discord.PermissionOverwrite(send_messages=False)})
-            if command=='kick' and 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
-                await message.channel.send('Bye :(')
-                await message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)).delete
-                await message.channel.guild.leave
-            else:
-                await message.channel.send("Nice try {0} . You don't actually have the perms for that, do you?".format(message.author.mention))
-        else:
-            await message.channel.send("That's not a thing.")
-    elif not 'administrator' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))) and not message.author.bot and not hasRole('The Silent Few',message.author.roles) and message.author!=client.user and not (message.content.startswith('*') and message.content[1]!='*' and not message.content[-2] in ['\\','*'] and message.content[-1]=='*') and message.channel.name=='silent-conversation':
-        await message.author.add_roles(message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)),reason='The User was too loud.')
-        await message.channel.send(message.author.name+' was silenced.')
-        for i in 'quiet':
+    if message.content.startswith('sm!'):
+        cmd=(message.content+"! ").split('!')[1]
+        param=(cmd+"- ").split('-')[1]
+        if cmd.startswith('post'):
+            if message.channel.id==702529504383598712 and not param.startswith('s') and message.author!=client.user:
+                await message.channel.send('post: {0} asked: @everyone What day(s) of the week can you play?'.format(message.author.mention))
+            elif param.startswith("s"):
+                await message.channel.send('post: {0} asked: What day\'s can you play? (test)'.format(message.author.mention))
+        elif cmd.startswith('poll'):
+            if param.startswith("m"):
+                await message.channel.send("poll: {0} asked: {1}".format(message.author.mention,param.split('=')[1]))
+        await message.delete(delay=2)
+    elif message.author.id==message.channel.guild.me.id and message.content.startswith("post:"):
+        for i in days:
             await message.add_reaction(indicators[i])
-        
+        await message.add_reaction('\U0000274C')
+        await message.edit(content=message.content[6:])
+    elif message.author.id==message.channel.guild.me.id and message.content.startswith("poll: "):
+        await message.add_reaction('\U00002705')
+        await message.add_reaction('\U0000274C')
+        await message.edit(content=message.content[6:])
 
 bot_token=environ.get('BOT_TOKEN',None)
-
 if not bot_token:
     bot_token=input('What is your bot token?')
-
 client.run(bot_token)
