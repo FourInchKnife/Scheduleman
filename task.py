@@ -1,5 +1,5 @@
-import discord
 from os import environ
+import discord
 
 def hasRole(name='@everyone',list=[]):
     list2=[]
