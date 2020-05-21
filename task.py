@@ -46,11 +46,15 @@ async def on_message(message):
             await message.channel.send('Look at my GitHub page for commands: https://github.com/rxal12233445/Discord-Silencer-Bot/blob/master/README.md')
         elif command=='getalife':
             await message.channel.send('Says the person talking to a literal bot.')
-        elif command=='init':
-            if 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
+        elif command=='init' or command=='kick':
+            if command=='init' and 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
                 await message.channel.send('Ok then. I guess I\'ll just re-do all of my hard work.')
                 await message.channel.guild.create_role(name='Silenced',reason='Allows muting of rule breakers in the silent-conversation chat.')
                 await message.channel.guild.create_text_channel('silent-conversation',overwrites={message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)):discord.PermissionOverwrite(send_messages=False)})
+            if command=='kick' and 'manage_guild' in isTrue(makeDict(iter((message.channel.permissions_for(message.author))))):
+                await message.channel.send('Bye :(')
+                await message.channel.guild.get_role(findIDForRole('Silenced',message.channel.guild.roles)).delete
+                await message.channel.guild.leave
             else:
                 await message.channel.send("Nice try {0} . You don't actually have the perms for that, do you?".format(message.author.mention))
         else:
