@@ -42,7 +42,7 @@ async def on_message(message):
                 if params['-m']:
                     1==1
             except KeyError:
-                await message.channel.send('error: no message. use -m="message here"')
+                await message.channel.send('```Syntax Error: No message. Use the -m flag (-m="message here")```')
                 return
             if message.author!=client.user:
                 await message.channel.send('{0}: {1} asked: {2} {3}'.format(params['cmd'],message.author.display_name,ping,params['-m']))
