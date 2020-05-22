@@ -47,6 +47,8 @@ async def on_message(message):
             if message.author!=client.user:
                 await message.channel.send('{0}: {1} asked: {2} {3}'.format(params['cmd'],message.author.display_name,ping,params['-m']))
             await message.delete(delay=2)
+        else:
+            await message.channel.send("I'm not sure what ```{0}``` is supposed to be \U0001F610".format())
     elif message.author==message.channel.guild.me and message.content.startswith("post:"):
         for i in days:
             await message.add_reaction(indicators[i])
