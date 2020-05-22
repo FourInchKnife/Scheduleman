@@ -21,23 +21,36 @@ async def on_ready():
 @client.event
 async def on_message(message):
     if message.content.startswith('sm!'):
-        cmd=(message.content+"! ").split('!')[1]
-        param=(cmd+"- ").split('-')[1]
-        if cmd.startswith('post'):
-            if message.channel.id==702529504383598712 and not param.startswith('s') and message.author!=client.user:
-                await message.channel.send('post: {0} asked: @everyone What day(s) of the week can you play?'.format(message.author.mention))
-            elif param.startswith("s"):
-                await message.channel.send('post: {0} asked: What day\'s can you play? (test)'.format(message.author.mention))
-        elif cmd.startswith('poll'):
-            if param.startswith("m"):
-                await message.channel.send("poll: {0} asked: {1}".format(message.author.mention,param.split('=')[1]))
-        await message.delete(delay=2)
-    elif message.author.id==message.channel.guild.me.id and message.content.startswith("post:"):
+        cmd=message.content.split('!',1)[1]
+        sep=shlex.split(cmd)
+        params={}
+        params['cmd']=sep[0]
+        for i in sep[1:]:
+            try:
+                params[i.split('=',1)[0]]=i.split('=',1)[1]
+            except IndexError:
+                params[i.split('=',1)[0]]=True
+        if params['cmd'] in ['post','poll']:
+            try:
+                if params['-ping']:
+                    ping=message.channel.guild.default_role.mention
+            except KeyError:
+                params['-ping']=False
+                ping=''
+            try:
+                if params['-m']:
+                    1==1
+            except KeyError:
+                params['-m']='error: no message. use -m="message here"'
+            if message.author!=client.user:
+                await message.channel.send('{0}: {1} asked: {2} {3}'.format(params['cmd'],message.author.mention,ping,params['-m']))
+            await message.delete(delay=2)
+    elif message.author==message.channel.guild.me and message.content.startswith("post:"):
         for i in days:
             await message.add_reaction(indicators[i])
         await message.add_reaction('\U0000274C')
         await message.edit(content=message.content[6:])
-    elif message.author.id==message.channel.guild.me.id and message.content.startswith("poll: "):
+    elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
         await message.add_reaction('\U00002705')
         await message.add_reaction('\U0000274C')
         await message.edit(content=message.content[6:])
