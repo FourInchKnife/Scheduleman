@@ -53,9 +53,11 @@ async def on_message(message):
         for i in days:
             await message.add_reaction(indicators[i])
         await message.add_reaction('\U0000274C')
+        await message.edit(content=message.content.split("post: ",1)[1])
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
         await message.add_reaction('\U00002705')
         await message.add_reaction('\U0000274C')
+        await message.edit(content=message.content.split("poll: ",1)[1])
 
 bot_token=environ.get('BOT_TOKEN',None)
 if not bot_token:
