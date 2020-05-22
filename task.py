@@ -26,7 +26,7 @@ async def on_message(message):
         if params['cmd'] in ['post','poll']:
             try:
                 if params['-ping']:
-                    ping=message.channel.guild.default_role.mention
+                    ping=message.channel.guild.default_role.mention[1:]
             except KeyError:
                 params['-ping']=False
                 ping=''
