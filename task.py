@@ -44,17 +44,15 @@ async def on_message(message):
             except KeyError:
                 params['-m']='error: no message. use -m="message here"'
             if message.author!=client.user:
-                await message.channel.send('{0}: {1} asked: {2} {3}'.format(params['cmd'],message.author.mention,ping,params['-m']))
+                await message.channel.send('{0}: {1} asked: {2} {3}'.format(params['cmd'],message.author.display_name,ping,params['-m']))
             await message.delete(delay=2)
     elif message.author==message.channel.guild.me and message.content.startswith("post:"):
         for i in days:
             await message.add_reaction(indicators[i])
         await message.add_reaction('\U0000274C')
-        await message.edit(content=message.content[6:])
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
         await message.add_reaction('\U00002705')
         await message.add_reaction('\U0000274C')
-        await message.edit(content=message.content[6:])
 
 bot_token=environ.get('BOT_TOKEN',None)
 if not bot_token:
