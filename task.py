@@ -1,5 +1,6 @@
 from os import environ
 import discord
+import shlex
 
 def hasRole(name='@everyone',list=[]):
     list2=[]
