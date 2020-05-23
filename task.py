@@ -46,7 +46,7 @@ async def on_message(message):
         else:
             await message.channel.send("I'm not sure what ```{0}``` is supposed to be \U0001F610".format())
     elif message.author==message.channel.guild.me and message.content.startswith("post:"):
-        for i in 'mtwhf:
+        for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
         await message.add_reaction('\U0000274C')
         await message.edit(content=message.content.split("post: ",1)[1])
