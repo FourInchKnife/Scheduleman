@@ -1,5 +1,5 @@
 from os import environ
-from discord import AllowedMentions
+from discord import mentions
 import discord
 import shlex
 
@@ -23,7 +23,8 @@ async def on_message(message):
         params=cmd.split(" ",1)[:]
         if params[0] in ['post','poll']:
             if message.author!=client.user:
-                await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone))
+                pingable=AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
+                await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=pingable)
             await message.delete(delay=2)
     elif message.author==message.channel.guild.me and message.content.startswith("post:"):
         for i in 'mtwhfs':
