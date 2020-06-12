@@ -8,7 +8,6 @@ def makeInd(letter): ## Python magic does the same as the original thing
     lets="abcdefghijklmnopqrstuvwxyz"
     maked=eval('"\\U000'+hex(lets.index(letter)+127462)[2:]+'"')
     return maked
-
 client = discord.Client()
 
 @client.event
@@ -17,34 +16,13 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name="sm!"))
 @client.event
 async def on_message(message):
-    if message.content.startswith('sm!'):
+    if message.content.startswith('!'):
         cmd=message.content.split('!',1)[1]
-        sep=shlex.split(cmd)
-        params={}
-        params['cmd']=sep[0]
-        for i in sep[1:]:
-            try:
-                params[i.split('=',1)[0]]=i.split('=',1)[1]
-            except IndexError:
-                params[i.split('=',1)[0]]=True
-        if params['cmd'] in ['post','poll']:
-            try:
-                if params['-ping']:
-                    ping='@everyone'
-            except KeyError:
-                params['-ping']=False
-                ping=''
-            try:
-                if params['-m']:
-                    1==1
-            except KeyError:
-                await message.channel.send('```Syntax Error: No message. Use the -m flag (-m="message here")```')
-                return
+        params=cmd.split(" ")
+        if params[0] in ['post','poll']:
             if message.author!=client.user:
-                await message.channel.send('{0}: {2} {1} asked: {3}'.format(params['cmd'],message.author.display_name,ping,params['-m']))
+                await message.channel.send('{0}: {2} {1} asked: {3}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone))
             await message.delete(delay=2)
-        else:
-            await message.channel.send("I'm not sure what ```{0}``` is supposed to be \U0001F610".format())
     elif message.author==message.channel.guild.me and message.content.startswith("post:"):
         for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
