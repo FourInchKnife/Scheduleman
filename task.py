@@ -18,7 +18,8 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith('!'):
         cmd=message.content[1:]
-        params=cmd.split(" ",1)
+        params=cmd.split(" ",1)[:]
+        print(params)
         if params[0] in ['post','poll']:
             if message.author!=client.user:
                 await message.channel.send('{0}: {2} {1} asked: {3}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone))
