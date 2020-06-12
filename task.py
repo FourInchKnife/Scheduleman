@@ -1,5 +1,5 @@
 from os import environ
-import discord.py
+import discord
 import shlex
 
 def makeInd(letter): ## Python magic does the same as the original thing
