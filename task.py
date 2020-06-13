@@ -11,7 +11,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    await client.change_presence(activity=discord.Game(name="!day !week and !poll"))
+    await client.change_presence(activity=discord.CustomActivity(name="Waiting for: !day !week and !poll"))
 @client.event
 async def on_message(message):
     if message.content.startswith('!'):
