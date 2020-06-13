@@ -35,7 +35,7 @@ async def on_message(message):
         emojiIDs= [721388045915521075,721383207446118491,721383262106157097,721383310978449439,721383361398046742,721383058841796618,721383108884299797]
         for i in emojiIDs:
             nextEmoji= await emojiGuild.fetch_emoji(i)
-            await message.add_reaction(i)
+            await message.add_reaction(nextEmoji)
         await message.add_reaction('\U0000274C')
         await message.edit(content=('filler'+message.content).split("days: ",1)[1])
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
