@@ -25,7 +25,7 @@ async def on_message(message):
         elif params[0] == 'clocktest':
             toSend=''
             for i in ['1','2','3','4','5','6','7','8','9','10','11','12']:
-                toSend+=':{}: :{}30: '.format(i,i)
+                toSend+=':clock{}: :clock{}30: '.format(i,i)
             await message.channel.send(toSend)
     elif message.author==message.channel.guild.me and message.content.startswith("week:"):
         for i in 'mtwhfs':
