@@ -31,9 +31,11 @@ async def on_message(message):
                 toSend+=':clock{}: :clock{}30: '.format(i,i)
             await message.channel.send(toSend+'<:d20:712019129237897329>')
     elif message.author==message.channel.guild.me and message.content.startswith("days:"):
-        await message.add_reaction('\U00002600')
-        for i in 'mtwhfs':
-            await message.add_reaction(makeInd(i))
+        emojiGuild=client.get_guild(712731280772694198)
+        emojiIDs= [721388045915521075,721383207446118491,721383262106157097,721383310978449439,721383361398046742,721383058841796618,721383108884299797]
+        for i in emojiIDs:
+            nextEmoji= await emojiGuild.fetch_emoji(i)
+            await message.add_reaction(i)
         await message.add_reaction('\U0000274C')
         await message.edit(content=('filler'+message.content).split("days: ",1)[1])
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
