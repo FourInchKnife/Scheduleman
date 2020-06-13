@@ -19,7 +19,10 @@ async def on_message(message):
         params=cmd.split(" ",1)[:]
         if params[0] in ['week','poll','day']:
             if message.author!=client.user:
-                pingable=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
+                if type(message.channel.guild.me)==type(message.author):
+                    pingable=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
+                else:
+                    pingable=True
                 await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=pingable)
             await message.delete(delay=2)
         elif params[0] == 'clocktest':
