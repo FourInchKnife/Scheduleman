@@ -31,6 +31,7 @@ async def on_message(message):
                 toSend+=':clock{}: :clock{}30: '.format(i,i)
             await message.channel.send(toSend)
     elif message.author==message.channel.guild.me and message.content.startswith("days:"):
+        await message.add_reaction('\U00002600')
         for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
         await message.add_reaction('\U0000274C')
