@@ -2,7 +2,7 @@ from os import environ
 import discord
 import shlex
 
-def makeInd(letter): ## Python magic does the same as the original thing
+def makeInd(letter):
     lets="abcdefghijklmnopqrstuvwxyz"
     maked=eval('"\\U000'+hex(lets.index(letter)+127462)[2:]+'"')
     return maked
@@ -20,7 +20,10 @@ async def on_message(message):
         if params[0] in ['days','poll','time']:
             if message.author!=client.user:
                 if type(message.channel.guild.me)==type(message.author):
-                    pingable=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
+                    owo=message.author.permissions_in(message.channel).mention_everyone
+                    #owo=False
+                    pingable=discord.AllowedMentions(everyone=owo)
+                    print(owo)
                 else:
                     pingable=discord.AllowedMentions(everyone=True)
                 await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=pingable)
@@ -37,17 +40,18 @@ async def on_message(message):
             nextEmoji= await emojiGuild.fetch_emoji(i)
             await message.add_reaction(nextEmoji)
         await message.add_reaction('\U0000274C')
-        await message.edit(content=('filler'+message.content).split("days: ",1)[1])
+        await message.edit(content=('filler'+message.content).split("days: ",1)[1],allowed_mentions=discord.AllowedMentions(everyone=message.mention_everyone))
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
         await message.add_reaction('\U00002705')
         await message.add_reaction('\U0000274C')
-        await message.edit(content=('filler'+message.content).split("poll: ",1)[1])
+        await message.edit(content=('filler'+message.content).split("poll: ",1)[1],allowed_mentions=discord.AllowedMentions(everyone=message.mention_everyone))
     elif message.author==message.channel.guild.me and message.content.startswith("time: "):
         await message.channel.send('This command has yet to be fully implemented \U00002639')
-        await message.edit(content=('filler'+message.content).split("time: ",1)[1])
+        await message.edit(content=('filler'+message.content).split("time: ",1)[1],allowed_mentions=discord.AllowedMentions(everyone=message.mention_everyone))
         
 
 bot_token=environ.get('BOT_TOKEN',None)
 if not bot_token:
     bot_token=input('What is your bot token?')
+    print('\n'*100)
 client.run(bot_token)
