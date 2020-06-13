@@ -26,7 +26,7 @@ async def on_message(message):
             toSend=''
             for i in ['1','2','3','4','5','6','7','8','9','10','11','12']:
                 toSend+=':{}: :{}30: '.format(i,i)
-            message.channel.send(toSend)
+            await message.channel.send(toSend)
     elif message.author==message.channel.guild.me and message.content.startswith("week:"):
         for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
