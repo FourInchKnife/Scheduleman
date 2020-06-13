@@ -22,6 +22,11 @@ async def on_message(message):
                 pingable=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
                 await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=pingable)
             await message.delete(delay=2)
+        elif params[0] == 'clocktest':
+            toSend=''
+            for i in ['1','2','3','4','5','6','7','8','9','10','11','12']:
+                toSend+=':{}: :{}30: '.format(i)
+            message.channel.send(toSend)
     elif message.author==message.channel.guild.me and message.content.startswith("week:"):
         for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
