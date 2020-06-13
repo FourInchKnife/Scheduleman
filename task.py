@@ -26,14 +26,14 @@ async def on_message(message):
         for i in 'mtwhfs':
             await message.add_reaction(makeInd(i))
         await message.add_reaction('\U0000274C')
-        await message.edit(content=message.content.split("week: ",1)[0])
+        await message.edit(content=('filler'+message.content).split("week: ",1)[1])
     elif message.author==message.channel.guild.me and message.content.startswith("poll: "):
         await message.add_reaction('\U00002705')
         await message.add_reaction('\U0000274C')
-        await message.edit(content=message.content.split("poll: ",1)[0])
+        await message.edit(content=('filler'+message.content).split("poll: ",1)[1])
     elif message.author==message.channel.guild.me and message.content.startswith("day: "):
         await message.channel.send('This command has yet to be fully implemented \U00002639')
-        await message.edit(content=message.content.split("day: ",1)[0])
+        await message.edit(content=('filler'+message.content).split("day: ",1)[1])
         
 
 bot_token=environ.get('BOT_TOKEN',None)
