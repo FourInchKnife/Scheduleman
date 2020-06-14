@@ -20,10 +20,7 @@ async def on_message(message):
         if params[0] in ['days','poll','time']:
             if message.author!=client.user:
                 if type(message.channel.guild.me)==type(message.author):
-                    owo=message.author.permissions_in(message.channel).mention_everyone
-                    #owo=False
-                    pingable=discord.AllowedMentions(everyone=owo)
-                    print(owo)
+                    pingable=discord.AllowedMentions(everyone=message.author.permissions_in(message.channel).mention_everyone)
                 else:
                     pingable=discord.AllowedMentions(everyone=True)
                 await message.channel.send('{0}: {1} asked: {2}'.format(params[0],message.author.display_name,params[1]),allowed_mentions=pingable)
