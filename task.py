@@ -45,7 +45,9 @@ async def on_message(message):
     elif message.author==message.channel.guild.me and message.content.startswith("time: "):
         await message.channel.send('This command has yet to be fully implemented \U00002639')
         await message.edit(content=('filler'+message.content).split("time: ",1)[1],allowed_mentions=discord.AllowedMentions(everyone=message.mention_everyone))
-        
+    elif message.author.id== 270904126974590976:
+        await message.add_reaction('👍')
+        await message.add_reaction('👎')
 
 bot_token=environ.get('BOT_TOKEN',None)
 if not bot_token:
