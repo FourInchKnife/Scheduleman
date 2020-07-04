@@ -37,7 +37,7 @@ async def days(ctx,*,arg):
 
 @bot.event
 async def on_command_error(context,exception):
-    if str(type(exception))!="<class 'discord.ext.commands.errors.CommandNotFound'>":
+    if type(exception)!=commands.errors.CommandNotFound:
         await context.send("Error: ```{0}```\nType:```{1}```".format(str(exception),type(exception)))
 
 bot_token=environ.get('BOT_TOKEN',None)
