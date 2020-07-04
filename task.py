@@ -1,19 +1,16 @@
 from os import environ
-import discord
-import shlex
+from discord.ext import commands
+from discord import AllowedMentions,Game
+import datetime
 
-def makeInd(letter):
-    lets="abcdefghijklmnopqrstuvwxyz"
-    maked=eval('"\\U000'+hex(lets.index(letter)+127462)[2:]+'"')
-    return maked
-client = discord.Client()
-
-@client.event
+bot = commands.Bot(command_prefix='!',owner_id=600130839870963725,activity=Game(name="!days and !poll",start=datetime.datetime.now()))
+@bot.event
 async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
-    await client.change_presence(activity=discord.Game("!days and !poll"))
-@client.event
-async def on_message(message):
+    print('Logged in as {}'.format(bot.user))
+@bot.command()
+async def poll(ctx,*,arg):
+    message=ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=AllowedMentions(
+    
     if message.content.startswith('!'):
         cmd=message.content[1:]
         params=cmd.split(" ",1)[:]
