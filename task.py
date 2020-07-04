@@ -33,9 +33,11 @@ async def days(ctx,*,arg):
     sent_message=await ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
     for i in emoji_list:
         await sent_message.add_reaction(i)
-@bot.event #super simple error handling that sends the exception in a discord message
+
+@bot.event
 async def on_command_error(context,exception):
-    await context.send("Error: ```{}```".format(str(exception)))
+    if str(type(exception))!="<class 'discord.ext.commands.errors.CommandNotFound'>":
+        await context.send("Error: ```{0}```\nType:```{1}```".format(str(exception),type(exception)))
 
 bot_token=environ.get('BOT_TOKEN',None)
 if not bot_token:
