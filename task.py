@@ -6,12 +6,9 @@ import datetime
 bot = commands.Bot(command_prefix='!',owner_id=600130839870963725,activity=Game(name="!days and !poll",start=datetime.datetime.now()))
 
 emoji_list=[]
-emojiGuild=bot.get_guild(712731280772694198).emojis
 emojiIDs=[721544022534914130,721544022216278056,721544022534914120,721544022547759165,721544022237249538,721544022081929226,721544022384181339]
-for i in emojiGuild:
-    for j in emojiIDs:
-        if i.id==j:
-            emoji_list.append(i)
+for i in emojiIDs:
+    emoji_list.append(get_emoji(i))
 
 @bot.event
 async def on_ready():
