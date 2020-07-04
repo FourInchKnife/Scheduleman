@@ -20,7 +20,7 @@ async def poll(ctx,*,arg):
         if i != ctx.author:
             allButAuthor.append(i)
     pingable=AllowedMentions(everyone=ctx.author.permissions_in(ctx.channel).mention_everyone,roles=ctx.author.permissions_in(ctx.channel).mention_everyone,users=allButAuthor)
-    sent_message=ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
+    sent_message=await ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
     await sent_message.add_reaction('\U00002705')
     await sent_message.add_reaction('\U0000274C')
 @bot.command()
@@ -30,7 +30,7 @@ async def days(ctx,*,arg):
         if i != ctx.author:
             allButAuthor.append(i)
     pingable=AllowedMentions(everyone=ctx.author.permissions_in(ctx.channel).mention_everyone,roles=ctx.author.permissions_in(ctx.channel).mention_everyone,users=allButAuthor)
-    sent_message=ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
+    sent_message=await ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
     for i in emoji_list:
         await sent_message.add_reaction(i)
 @bot.event #super simple error handling that sends the exception in a discord message
