@@ -23,6 +23,7 @@ async def poll(ctx,*,arg):
     sent_message=await ctx.send("{0} asked: {1}".format(ctx.author.mention,arg),allowed_mentions=pingable)
     await sent_message.add_reaction('\U00002705')
     await sent_message.add_reaction('\U0000274C')
+    await ctx.message.delete()
 @bot.command()
 async def days(ctx,*,arg):
     allButAuthor=[]
@@ -37,6 +38,7 @@ async def days(ctx,*,arg):
         nextEmoji= await emojiGuild.fetch_emoji(i)
         await sent_message.add_reaction(nextEmoji)
     await sent_message.add_reaction('\U0000274C')
+    await ctx.message.delete()
 
 @bot.event
 async def on_command_error(context,exception):
