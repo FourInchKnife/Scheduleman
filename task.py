@@ -35,7 +35,11 @@ async def days(ctx,*,arg):
             await sent_message.add_reaction(nextEmoji)
         await sent_message.add_reaction('\U0000274C')
         await ctx.message.delete()
-
+@bot.event
+async def on_message(message):
+    if message.author.id==bot.user.id:
+        return
+    await bot.process_commands(message)
 @bot.event
 async def on_command_error(context,exception):
     if type(exception)!=commands.errors.CommandNotFound:
