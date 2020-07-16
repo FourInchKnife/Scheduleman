@@ -2,6 +2,8 @@ from os import environ
 from discord.ext import commands
 from discord import AllowedMentions,Game
 import datetime
+import sys
+print(sys.modules)
 
 bot = commands.Bot(command_prefix='!',owner_id=600130839870963725,activity=Game(name="!days and !poll",start=datetime.datetime.now()))
 
