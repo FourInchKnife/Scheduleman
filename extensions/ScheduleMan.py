@@ -22,7 +22,7 @@ class ScheduleMan(commands.Cog):
 		else:
 			data = [arg,"psst... you can set a custom message here by using ~ between the title and description!"]
 		toEmbed=discord.Embed(title=data[0],description=data[1],colour=discord.Colour(0xFFFFFF))
-		toEmbed.set_author(str(ctx.author),icon_url = ctx.author.avatar_url)
+		toEmbed.set_author(name=str(ctx.author),icon_url = ctx.author.avatar_url)
 		if "@everyone" in arg:
 			send="@everyone"
 		else:
@@ -46,7 +46,7 @@ class ScheduleMan(commands.Cog):
 			else:
 				data = [arg,"psst... you can set a custom message here by using ~ between the title and description!"]
 			toEmbed=discord.Embed(title=data[0],description=data[1],colour=discord.Colour(0xFFFFFF))
-			toEmbed.set_author(str(ctx.author),icon_url = ctx.author.avatar_url)
+			toEmbed.set_author(name=str(ctx.author),icon_url = ctx.author.avatar_url)
 			if "@everyone" in arg:
 				send="@everyone"
 			else:
