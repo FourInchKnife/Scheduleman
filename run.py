@@ -9,8 +9,8 @@ from io import BytesIO, StringIO
 import traceback
 from pretty_help import PrettyHelp
 
-scriptDir = "/home/ubuntu/github/FakeScheduleMan/"
-os.chdir(scriptDir)
+#scriptDir = "/home/ubuntu/github/Scheduleman/"
+#os.chdir(scriptDir)
 
 with open("core/config.json","r") as file:
     config = json.loads(file.read())
