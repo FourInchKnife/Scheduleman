@@ -9,6 +9,6 @@
       "Docs" : "https://fourinchknife.github.io/EasyPluginBot/",
       "Top.gg": "https://top.gg/bot/711969837101875220/"
     },
-    "max_error_length" : 1000
+    "max_error_length" : 100
   }
 }
