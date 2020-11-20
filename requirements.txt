@@ -1,1 +1,2 @@
-discord.py @ git+https://github.com/Rapptz/discord.py
+discord.py >= 1.4.1
+pretty_help
