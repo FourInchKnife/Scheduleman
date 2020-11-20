@@ -1,12 +1,13 @@
 {
   "bot":{
     "no_ext_abort" : true,
-    "command_prefix" : "!",
+    "command_prefix" : "s!",
     "ext_dir" : "extensions",
     "owner_ids" : [600130839870963725],
     "links" : {
       "GitHub" : "https://github.com/FourInchKnife/EasyPluginBot/",
-      "Docs" : "https://fourinchknife.github.io/EasyPluginBot/"
+      "Docs" : "https://fourinchknife.github.io/EasyPluginBot/",
+      "Top.gg": "https://top.gg/bot/711969837101875220/"
     },
     "max_error_length" : 1000
   }
