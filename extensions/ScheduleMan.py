@@ -4,7 +4,7 @@ from discord.ext import commands
 def makeIndicator(letter): ## Python magic
 	'''Generates the correct regional indicator emoji for a letter'''
 	lets="abcdefghijklmnopqrstuvwxyz"
-	maked=eval('''"\\U000'''+hex(lets.index(letter)+127462)[2:]+'''"''')
+	maked=eval('"\\U000'+hex(lets.index(letter)+127462)[2:]+'"')
 	return maked
 class ScheduleMan(commands.Cog):
 	def __init__(self,bot,config,key):
@@ -22,6 +22,7 @@ class ScheduleMan(commands.Cog):
 		else:
 			data = [arg,"psst... you can set a custom message here by using ~ between the title and description!"]
 		toEmbed=discord.Embed(title=data[0],description=data[1],colour=discord.Colour(0xFFFFFF))
+		toEmbed.set_author(str(ctx.author),icon_url = ctx.author.avatar_url)
 		if "@everyone" in arg:
 			send="@everyone"
 		else:
@@ -40,7 +41,12 @@ class ScheduleMan(commands.Cog):
 				if i != ctx.author:
 					allButAuthor.append(i)
 			pingable=discord.AllowedMentions(everyone=ctx.author.permissions_in(ctx.channel).mention_everyone,roles=ctx.author.permissions_in(ctx.channel).mention_everyone,users=allButAuthor)
-			toEmbed=discord.Embed(title=arg,description="React to this message to tell {0} what works.".format(ctx.author.name),colour=discord.Colour(0xFFFFFF))
+			if "~" in arg:
+				data = arg.split("~",1)
+			else:
+				data = [arg,"psst... you can set a custom message here by using ~ between the title and description!"]
+			toEmbed=discord.Embed(title=data[0],description=data[1],colour=discord.Colour(0xFFFFFF))
+			toEmbed.set_author(str(ctx.author),icon_url = ctx.author.avatar_url)
 			if "@everyone" in arg:
 				send="@everyone"
 			else:
