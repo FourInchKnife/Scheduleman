@@ -4,7 +4,7 @@ from discord.ext import commands
 def makeIndicator(letter): ## Python magic
 	'''Generates the correct regional indicator emoji for a letter'''
 	lets="abcdefghijklmnopqrstuvwxyz"
-	maked=eval('"\\U000'+hex(lets.index(letter)+127462)[2:]+'"')
+	maked=eval('"\\U000'+hex(lets.index(letter)+0x1f1e6)[2:]+'"')
 	return maked
 class ScheduleMan(commands.Cog):
 	def __init__(self,bot,config,key):
